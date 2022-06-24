@@ -9,6 +9,7 @@ import torch
 
 names = list()
 graph_losses = list()
+os.system('mkdir data_processed')
 
 for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     data_path = adj_path.replace('_adj', '_data')
@@ -48,3 +49,4 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     df = pd.DataFrame({'graph_loss':graph_losses, 'name': names, 'time': time_elapsed})
     df.to_csv('exp_summary.csv')
     print(df)
+    os.system('mv '+adj_path+' '+adj_path.replace('data/', 'data_processed/'))
