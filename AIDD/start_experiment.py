@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import time
+import torch
 
 names = list()
 graph_losses = list()
@@ -32,7 +33,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     try:
         adj_gt = pickle.load(open(adj_path, "rb"))
         adj_out_name = 'model/adj_{}_{}_25_id1.pkl'.format(dynname, networkname)
-        adj_pred = np.loadtxt(adj_out_name)
+        adj_pred = torch.load(adj_out_name).detach().cpu().numpy()
         np.fill_diagonal(adj_pred, 0)
         adj_pred = (adj_pred + np.transpose(adj_pred))/2.0
         adj_pred = np.where(adj_pred>0.5, 1.0, 0.0)
