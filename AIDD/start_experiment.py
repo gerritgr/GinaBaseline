@@ -31,7 +31,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
 
     try:
         adj_gt = pickle.load(open(adj_path, "rb"))
-        adj_out_name = 'model/adj_{}_{}_id1.pkl'.format(dynname, networkname)
+        adj_out_name = 'model/adj_{}_{}_25_id1.pkl'.format(dynname, networkname)
         adj_pred = np.loadtxt(adj_out_name)
         np.fill_diagonal(adj_pred, 0)
         adj_pred = (adj_pred + np.transpose(adj_pred))/2.0
@@ -45,3 +45,4 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     graph_losses.append(graph_loss)
     df = pd.DataFrame({'graph_loss':graph_losses, 'name': names, 'time': time_elapsed})
     df.to_csv('exp_summary.csv')
+    print(df)
