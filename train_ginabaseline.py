@@ -193,7 +193,7 @@ for e in range(HYP['epoch_num']):
         torch.save(generator, gen_path)
         out_matrix = generator.sample_all(hard=HYP['hard_sample'], ).to(device)
         torch.save(out_matrix, adj_path)
-        torch.save(out_matrix, adj_path+str(e+100000000))+'.pkl'  # to compare how adj matrices develop over time
+        torch.save(out_matrix, adj_path+str(e+100000000)+'.pkl')  # to compare how adj matrices develop over time
     print('best epoch:', best)
     # if e > 1:
     t_s2 = time.time()
