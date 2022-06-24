@@ -35,6 +35,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
         adj_pred = np.loadtxt(adj_out_name)
         np.fill_diagonal(adj_pred, 0)
         adj_pred = (adj_pred + np.transpose(adj_pred))/2.0
+        adj_pred = np.where(adj_pred>0.5, 1.0, 0.0)
         diff_matrix = np.abs(adj_gt-adj_pred)
         graph_loss = np.sum(diff_matrix)/2.0  
     except:
