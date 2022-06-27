@@ -49,7 +49,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
         diff_matrix = np.abs(adj_gt-adj_pred)
         graph_loss = np.sum(diff_matrix)/2.0  
     except:
-        pass
+        continue
 
     print(graph_loss)
     row = {'graph_loss': graph_loss, 'name': adj_path, 'time': time_elapsed}
