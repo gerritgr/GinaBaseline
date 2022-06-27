@@ -9,7 +9,7 @@ import torch
 
 
 os.system('mkdir data_processed')
-df = pd.DataFrame({'graph_loss': list(), 'name': names, 'time': list()})
+df = pd.DataFrame({'graph_loss': list(), 'name': list(), 'time': list()})
 if os.path.exists('exp_summary.csv'):
     df = pd.read_csv('exp_summary.csv')
     print('load df:')
