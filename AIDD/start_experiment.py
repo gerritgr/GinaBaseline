@@ -23,8 +23,9 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     networkname = adj_path.split('_')[-4]
     nodenum = adj_path.split('_')[-3]
     
-    if adj_path in df['name']:
+    if adj_path in list(df['name']):
         print('skip: ', adj_path)
+        continue
 
     command = 'python train_ginabaseline.py --device_id=0 --network={} --nodes={} --sys={}'.format(networkname, nodenum, dynname)
 
