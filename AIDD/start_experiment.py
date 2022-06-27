@@ -26,7 +26,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     if adj_path in df['name']:
         print('skip: ', adj_path)
 
-    command = 'python train_ginabaseline.py --device_id=0 --network={} --nodes={} --sys={} --epoch_num=400'.format(networkname, nodenum, dynname)
+    command = 'python train_ginabaseline.py --device_id=0 --network={} --nodes={} --sys={}'.format(networkname, nodenum, dynname)
 
     time_elapsed = -1
     start = time.time()
