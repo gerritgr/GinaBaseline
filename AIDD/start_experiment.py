@@ -51,7 +51,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
         pass
 
     print(graph_loss)
-    row = {{'graph_loss': graph_loss, 'name': adj_path, 'time': time_elapsed}}
+    row = {'graph_loss': graph_loss, 'name': adj_path, 'time': time_elapsed}
 
     df.to_csv('exp_summary.csv')
     print(df)
