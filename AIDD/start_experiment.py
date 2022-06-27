@@ -7,17 +7,24 @@ import pickle
 import time
 import torch
 
-names = list()
-graph_losses = list()
+
 os.system('mkdir data_processed')
+df = pd.DataFrame({'graph_loss': list(), 'name': names, 'time': list()})
+if os.path.exists('exp_summary.csv'):
+    df = pd.read_csv('exp_summary.csv')
+    print('load df:')
+    print(df)
 
 for adj_path in sorted(glob.glob('data/*_adj.pickle')):
     data_path = adj_path.replace('_adj', '_data')
     print('name is: ', adj_path)
-    #gol_GRIDstep1_25_id0_adj.pickle
+
     dynname = adj_path.split('/')[-1].split('_')[-5]
     networkname = adj_path.split('_')[-4]
     nodenum = adj_path.split('_')[-3]
+    
+    if adj_path in df['name']:
+        print('skip: ', adj_path)
 
     command = 'python train_ginabaseline.py --device_id=0 --network={} --nodes={} --sys={}'.format(networkname, nodenum, dynname)
 
@@ -44,9 +51,7 @@ for adj_path in sorted(glob.glob('data/*_adj.pickle')):
         pass
 
     print(graph_loss)
-    names.append(adj_path)
-    graph_losses.append(graph_loss)
-    df = pd.DataFrame({'graph_loss':graph_losses, 'name': names, 'time': time_elapsed})
+    row = {{'graph_loss': graph_loss, 'name': adj_path, 'time': time_elapsed}}
+
     df.to_csv('exp_summary.csv')
     print(df)
-    os.system('mv '+adj_path+' '+adj_path.replace('data/', 'data_processed/'))
