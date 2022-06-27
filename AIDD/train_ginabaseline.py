@@ -11,7 +11,7 @@ import argparse
 HYP = {
     'node_size': 100,
     'hid': 128,  # hidden size
-    'epoch_num': 200,  # epoch
+    'epoch_num': 400,  # epoch
     'batch_size': 2048,  # batch size
     'lr_net': 0.004,  # lr for net generator 0.004
     'lr_dyn': 0.001,  # lr for dyn learner
