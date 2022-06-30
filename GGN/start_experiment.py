@@ -8,6 +8,7 @@ import time
 
 names = list()
 graph_losses = list()
+times = list()
 
 for adj_path in sorted(glob.glob('output_for_GGN_AIDD/*_adj.pickle')):
     name = adj_path.replace('_adj.pickle', '')
@@ -23,6 +24,7 @@ for adj_path in sorted(glob.glob('output_for_GGN_AIDD/*_adj.pickle')):
     end = time.time()
     time_elapsed = end - start
     time.sleep(1.0)
+    times.append(time_elapsed)
 
 
     graph_loss = -1.0
@@ -39,5 +41,5 @@ for adj_path in sorted(glob.glob('output_for_GGN_AIDD/*_adj.pickle')):
     print(graph_loss)
     names.append(name)
     graph_losses.append(graph_loss)
-    df = pd.DataFrame({'graph_loss':graph_losses, 'name': names, 'time': time_elapsed})
+    df = pd.DataFrame({'graph_loss':graph_losses, 'name': names, 'time': times})
     df.to_csv('exp_summary.csv')
